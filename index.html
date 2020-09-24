@@ -1,1 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GlobalMC - 1:1000 Earth Scale SMP</title>
+    <link rel="icon" href="https://api.mcsrvstat.us/icon/play.globalmc.xyz">
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $('.menu').click(function(){
+        $('.button-box').toggleClass('active');
+      })
+    })
+    let url = "play.globalmc.xyz";
+    $(document).ready(() => {
+      $.getJSON("https://api.mcsrvstat.us/1/" + url, (status) => {
+          if (status.debug.ping) {
+              $("#motd").append(status.motd.raw);
+              $("#status").append("online");
+              $("#version").append(status.version);
+              $("#players_num").append(status.players.online + "/" + status.players.max)
+              $.each(status.players.list, function (index, player) {
+                  $("#players_list").append("<li>" + player + "</li>")
+              });
+          } else {
+              $("#motd").append(status.hostname);
+              $("#status").append("offline");
+              $("#version").hide();
+              $("#players_num").hide();
+          }
+          $("body").fadeIn(2000);
+      });
+    });
+    </script>
+  </head>
+  <body>
 
+<div class="header">
+  <div class="sv-name-and-menu">
+    <a class="server-name" href="/">GlobalMC</a>
+    <a class="toggle menu" style="color:#fff;">Menu</a>
+  </div>
+
+  <div class="button-box">
+    <ul>
+      <li><a href="https://discord.gg/cwayWcv">Discord</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="black centered"></div>
+<div class="bg centered">
+  <div class="container">
+   <div class="row">
+
+     <div class="col-sm-12 all">
+
+       <div class="icon">
+         <img src="https://api.mcsrvstat.us/icon/play.globalmc.xyz" alt="errors">
+       </div>
+
+       <div class="logo">
+        <img src="./img/logo.png" alt="errors">
+       </div>
+
+       <div class="info_and_status">
+         <h1><span id="sv_ip">play.globalmc.xyz</span><br><span id="status">status: </span></h1>
+         <h2 id="players_num">Players: </h2>
+         <h3 id="version">Version: </h3>
+       </div>
+       <hr>
+       <p>GlobalMC is an SMP Server with a 1:1000 scale map of Earth, there is plugins like Towny and an Economy to help give that Earth like feel. </p>
+    </div>
+
+  </div>
+ </div>
+</div>
+
+  </body>
+</html>
